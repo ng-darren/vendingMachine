@@ -22,6 +22,54 @@
   color: #61dafb;
 }
 
+.start-button {
+  margin-bottom: 30px;
+}
+
+.card-deck {
+  margin-bottom: 20px;
+}
+
+.card.selected {
+  background-color: #218838;
+  border: solid 3px #218838;
+}
+
+.card.disabled {
+  background-color: #888888;
+}
+
+.card-title, .card-text {
+  color: #333;
+}
+
+.icon-spin {
+  -webkit-animation: icon-spin 2s infinite linear;
+          animation: icon-spin 2s infinite linear;
+}
+
+@-webkit-keyframes icon-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+            transform: rotate(359deg);
+  }
+}
+
+@keyframes icon-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+            transform: rotate(359deg);
+  }
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
