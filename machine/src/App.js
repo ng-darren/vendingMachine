@@ -83,7 +83,6 @@ class App extends Component {
   }
 
   submitPayment = (type) => {
-    const drinkRef = db.collection("drinks").doc(this.state.selected);
     const selectedDrink = this.state.drinks.find(this.checkId);
     this.setState({ isPaying: true });
 
