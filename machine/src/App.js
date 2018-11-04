@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from "react-bootstrap/lib";
 import firebase from "./firebase";
 import './App.css';
 
@@ -121,6 +122,16 @@ class App extends Component {
     });
   }
 
+  exitMachine = () => {
+    this.setState({
+          machineId: '',
+          drinks: [],
+          revenue: {},
+          selected: null,
+          isLoading: true,
+          isPaying: false
+        })
+  }
 
   render() {
     const { isLoading, machineId, drinks, selected } = this.state;
@@ -154,6 +165,12 @@ class App extends Component {
             >
               GitHub
             </a>
+
+            { machineId && 
+              <Button className="start-button" bsStyle="danger" bsSize="small" onClick={_ => this.exitMachine }>
+               Exit
+              </Button>
+            }
           </div>
         </header>
       </div>

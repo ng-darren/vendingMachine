@@ -17,9 +17,8 @@ class Stock extends Component {
       <div className="container">
         <div className="row">
         {
-          drinks.map((drink, i) => <div className="col" key={i}>
-            <h5 className="card-text">{drink.name}</h5>
-            <h5 className="card-text">{drink.stock}</h5>
+          drinks.map((drink, i) => <div className={drink.stock > 2? 'col' : 'col low'} key={i}>
+            <span className="card-text"><small>{drink.name}<br />{drink.stock}</small></span>
           </div>)
         }
         </div>

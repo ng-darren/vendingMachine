@@ -34,20 +34,65 @@ class App extends Component {
       });
 
     });
+
+    // listen to machine data
+    db.collection("transactions").onSnapshot((querySnapshot) => {
+      this.setState({ transactions: [] });
+      querySnapshot.forEach((doc) => {
+        let transactions = this.state.transactions
+        let data = doc.data();
+        data.id = doc.id;
+        data.timeStamp = new Date(data.timeStamp).toISOString().slice(0,10).replace(/-/g,"");
+        transactions.push(data)
+        console.log(data)
+        this.setState({ transactions: transactions });
+      });
+
+    });
   }
 
   render() {
-    const { machines } = this.state;
+    const { machines, transactions } = this.state;
 
     return (
       <div className="App">
         <header className="App-header">
           <div className="container">
+            <h3>Machines</h3>
+
             <div className="card-columns">
               {
                 machines.map((machine, i) => <Machine key={i} machine={machine} />)
               }
             </div>
+
+            <h3>Transactions</h3>
+            <table className="table table-sm">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Drink</th>
+                  <th scope="col">Machine</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Time</th>
+                  <th scope="col">Cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  transactions.map((transaction, i) => <tr key={i}>
+                      <th scope="row">{i}</th>
+                      <td>{transaction.drinkId}</td>
+                      <td>{transaction.machineId}</td>
+                      <td>{transaction.type}</td>
+                      <td>{transaction.timeStamp}</td>
+                      <td>{transaction.cost}</td>
+                    </tr>)
+                }
+                
+              </tbody>
+            </table>
+
 
             <a
               className="App-link"

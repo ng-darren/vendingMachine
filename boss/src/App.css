@@ -43,6 +43,24 @@
   color: #333;
 }
 
+.card-text {
+  font-size: 0.6em;
+}
+
+.col {
+  padding: 0;
+  line-height: 0.4em;
+  margin: 10px;
+}
+
+.col.low {
+  background-color: #ea4555;
+}
+
+.table {
+  font-size: 0.6em;
+}
+
 .icon-spin {
   -webkit-animation: icon-spin 2s infinite linear;
           animation: icon-spin 2s infinite linear;

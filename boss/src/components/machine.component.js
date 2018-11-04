@@ -21,10 +21,8 @@ class Machine extends Component {
   }
 
   startState = {};
-  unsubscribe = null;
 
   componentDidMount() {
-    console.log(this.props.machine)
     for (var property in this.props.machine) {
       if (this.props.machine.hasOwnProperty(property)) {
         let drinks = this.state.drinks
@@ -42,35 +40,28 @@ class Machine extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.unsubscribe()
-  }
-
   stockUp = () => {
-    console.log('stockUp')
     this.setState({ disabled: true });
 
-    this.unsubscribe = db.collection("startState").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            console.log(doc.id, " => ", doc.data());
-            this.startState[doc.id] = doc.data()
+    db.collection("startState").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+          console.log(doc.id, " => ", doc.data());
+          this.startState[doc.id] = doc.data()
+      });
+
+      this.startState.revenue = {
+        cash: 0,
+        card: 0
+      }
+
+      db.collection("machines").doc(this.props.machine.id).update(this.startState)
+        .then(() => {
+          console.log("Document successfully updated!");
+        })
+        .catch((error) => {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
         });
-
-        this.startState.revenue = {
-          cash: 0,
-          card: 0
-        }
-
-        db.collection("machines").doc(this.props.machine.id).update(this.startState)
-          .then(() => {
-            console.log("Document successfully updated!");
-            this.setState({ disabled: false });
-          })
-          .catch((error) => {
-            // The document probably doesn't exist.
-            console.error("Error updating document: ", error);
-            this.setState({ disabled: false });
-          });
     });
   }
 
@@ -81,12 +72,15 @@ class Machine extends Component {
     return (<div className="card">
               <div className="card-body">
                 <h5 className="card-title">{machine.id}</h5>
+                <hr />
+                
                 <p className="card-text">
-                  <small>Cash: &#36;{revenue.cash / 100 + (revenue.cash > 0? '0' : '')}</small>
+                  Cash: &#36;{revenue.cash / 100 + (revenue.cash > 0? '0' : '')}
                   <br />
-                  <small>Card: &#36;{revenue.card / 100 + (revenue.cash > 0? '0' : '')}</small>
+                  Card: &#36;{revenue.card / 100 + (revenue.card > 0? '0' : '')}
                 </p>
 
+                <hr />
                 <Stock drinks={drinks} />
 
                 <Button className="start-button" bsStyle="danger" bsSize="sm" onClick={this.stockUp} disabled={disabled} block>
