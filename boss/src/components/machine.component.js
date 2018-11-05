@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import firebase from "../firebase";
 import { Button } from "react-bootstrap/lib";
-import { TiBeer } from 'react-icons/ti';
+import { TiBeer, TiCancel } from 'react-icons/ti';
 import { FaSpinner } from 'react-icons/fa';
 import '../App.css';
 
 import Stock from './stock.component'
+import NewDrinkFrom from './newDrinkForm.component'
 
 const db = firebase.firestore();
 db.settings({
@@ -17,6 +18,7 @@ class Machine extends Component {
   state = {
     drinks: [],
     revenue: {},
+    showAddNew: false,
     disabled: false
   }
 
@@ -34,7 +36,6 @@ class Machine extends Component {
           this.setState({ drinks: drinks });
         } else if (dbObject.hasOwnProperty('cash') || dbObject.hasOwnProperty('card')) {
           this.setState({ revenue: dbObject });
-          console.log(dbObject)
         }
       }
     }
@@ -45,7 +46,6 @@ class Machine extends Component {
 
     db.collection("startState").get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-          console.log(doc.id, " => ", doc.data());
           this.startState[doc.id] = doc.data()
       });
 
@@ -57,23 +57,29 @@ class Machine extends Component {
       db.collection("machines").doc(this.props.machine.id).update(this.startState)
         .then(() => {
           console.log("Document successfully updated!");
+          this.setState({ disabled: false });
         })
         .catch((error) => {
           // The document probably doesn't exist.
           console.error("Error updating document: ", error);
+          this.setState({ disabled: false });
         });
     });
   }
 
+  addNew = () => {
+    this.setState({ showAddNew : !this.state.showAddNew })
+  }
+
   render() {
     const { machine } = this.props
-    const { drinks, revenue, disabled } = this.state;
+    const { drinks, revenue, showAddNew, disabled } = this.state;
 
     return (<div className="card">
               <div className="card-body">
                 <h5 className="card-title">{machine.id}</h5>
                 <hr />
-                
+
                 <p className="card-text">
                   Cash: &#36;{revenue.cash / 100 + (revenue.cash > 0? '0' : '')}
                   <br />
@@ -83,10 +89,17 @@ class Machine extends Component {
                 <hr />
                 <Stock drinks={drinks} />
 
-                <Button className="start-button" bsStyle="danger" bsSize="sm" onClick={this.stockUp} disabled={disabled} block>
+                <br />
+                <Button className="start-button" variant="success" size="sm" onClick={this.stockUp} disabled={disabled} block>
                   {disabled? <FaSpinner className="icon-spin " /> : <TiBeer />} Stock Up
                 </Button>
+
+                { showAddNew && <NewDrinkFrom machineId={this.props.machine.id} /> }
+                <Button className="start-button" variant={ showAddNew? 'danger' : 'primary' } size="sm" onClick={this.addNew} disabled={disabled} block>
+                  {disabled? <FaSpinner className="icon-spin " /> : (showAddNew? <TiCancel /> : <TiBeer />) } { showAddNew? 'Cancel' : 'Add new' }
+                </Button>
               </div>
+
             </div>)
   }
 }

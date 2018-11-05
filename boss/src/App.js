@@ -9,7 +9,6 @@ db.settings({
   timestampsInSnapshots: true
 });
 
-
 class App extends Component {
 
   state = {
@@ -44,7 +43,6 @@ class App extends Component {
         data.id = doc.id;
         data.timeStamp = new Date(data.timeStamp).toISOString().slice(0,10).replace(/-/g,"");
         transactions.push(data)
-        console.log(data)
         this.setState({ transactions: transactions });
       });
 
@@ -89,7 +87,7 @@ class App extends Component {
                       <td>{transaction.cost}</td>
                     </tr>)
                 }
-                
+
               </tbody>
             </table>
 

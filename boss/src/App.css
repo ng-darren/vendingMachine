@@ -39,22 +39,40 @@
   background-color: #888888;
 }
 
-.card-title, .card-text {
+.card-title, .card-text, label, h5 {
   color: #333;
 }
 
-.card-text {
+.card-text, label {
   font-size: 0.6em;
+  margin-bottom: 0;
 }
 
 .col {
   padding: 0;
-  line-height: 0.4em;
+  line-height: 0.5em;
   margin: 10px;
 }
 
 .col.low {
   background-color: #ea4555;
+}
+
+.new-drink-form {
+  margin-bottom: 10px;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.invalid-feedback {
+  font-size: 0.5em;
+}
+
+.submit-button {
+  margin-top: 10px;
 }
 
 .table {
