@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import '../App.css';
+import * as CurrencyFormat from 'react-currency-format';
 
+import '../App.css';
 
 class Drink extends Component {
   render() {
@@ -11,7 +12,7 @@ class Drink extends Component {
               <img className="card-img-top" src={drink.image} alt={drink.name} />
               <div className="card-body">
                 <h5 className="card-title">{drink.name}</h5>
-                <p className="card-text">&#36;{drink.price / 100}</p>
+                <p className="card-text"><CurrencyFormat value={drink.price / 100} displayType={'text'} decimalScale={2} fixedDecimalScale={true} prefix={'$'} /></p>
                 <p className="card-text"><small className="text-muted">{drink.stock} left</small></p>
               </div>
             </div>)

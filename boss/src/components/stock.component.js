@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 
-
 class Stock extends Component {
-
-  state = {
-
-  }
-
-  colors = ['#ff3902', '#ff8007', '#ffb404', '#05badd', '#2b4871']
-
   render() {
     const { drinks } = this.props
 

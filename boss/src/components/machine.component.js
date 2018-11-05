@@ -3,6 +3,8 @@ import firebase from "../firebase";
 import { Button } from "react-bootstrap/lib";
 import { TiBeer, TiCancel } from 'react-icons/ti';
 import { FaSpinner } from 'react-icons/fa';
+import * as CurrencyFormat from 'react-currency-format';
+
 import '../App.css';
 
 import Stock from './stock.component'
@@ -81,9 +83,9 @@ class Machine extends Component {
                 <hr />
 
                 <p className="card-text">
-                  Cash: &#36;{revenue.cash / 100 + (revenue.cash > 0? '0' : '')}
+                  Cash: <CurrencyFormat value={revenue.cash / 100} displayType={'text'} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                   <br />
-                  Card: &#36;{revenue.card / 100 + (revenue.card > 0? '0' : '')}
+                  Card: <CurrencyFormat value={revenue.card / 100} displayType={'text'} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                 </p>
 
                 <hr />

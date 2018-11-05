@@ -79,7 +79,7 @@ class App extends Component {
               <tbody>
                 {
                   transactions.map((transaction, i) => <tr key={i}>
-                      <th scope="row">{i}</th>
+                      <th scope="row">{i+1}</th>
                       <td>{transaction.drinkId}</td>
                       <td>{transaction.machineId}</td>
                       <td>{transaction.type}</td>

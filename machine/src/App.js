@@ -168,7 +168,7 @@ class App extends Component {
             <br />
             <br />
             { machineId &&
-              <Button className="start-button" bsStyle="danger" bsSize="small" onClick={this.exitMachine}>
+              <Button className="start-button" variant="danger" size="small" onClick={this.exitMachine}>
                Exit
               </Button>
             }
