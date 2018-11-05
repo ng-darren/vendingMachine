@@ -4,8 +4,6 @@ import { Form, Button } from "react-bootstrap/lib";
 import { TiBeer } from 'react-icons/ti';
 import '../App.css';
 
-import Stock from './stock.component'
-
 const db = firebase.firestore();
 db.settings({
   timestampsInSnapshots: true

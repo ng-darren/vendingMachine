@@ -9,7 +9,6 @@ class Payment extends Component {
   }
 
   paymentSelected = (type) => {
-    console.log('paymentSelected', type);
     this.setState({ type: this.state.type === type? null : type })
   }
 

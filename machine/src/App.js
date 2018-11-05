@@ -27,7 +27,6 @@ class App extends Component {
   componentDidMount() {
     db.collection("startState").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-            console.log(doc.id, " => ", doc.data());
             this.startState[doc.id] = doc.data()
         });
 
@@ -128,7 +127,7 @@ class App extends Component {
           drinks: [],
           revenue: {},
           selected: null,
-          isLoading: true,
+          isLoading: false,
           isPaying: false
         })
   }
@@ -166,8 +165,10 @@ class App extends Component {
               GitHub
             </a>
 
-            { machineId && 
-              <Button className="start-button" bsStyle="danger" bsSize="small" onClick={_ => this.exitMachine }>
+            <br />
+            <br />
+            { machineId &&
+              <Button className="start-button" bsStyle="danger" bsSize="small" onClick={this.exitMachine}>
                Exit
               </Button>
             }
