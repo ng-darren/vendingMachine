@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`describing App  should change the selected state to be drink id 1`] = `
+<div
+  className="payment-container"
+>
+  <div
+    className="card-deck"
+  >
+    <div
+      className="card"
+      onClick={[Function]}
+    >
+      <div
+        className="card-body"
+      >
+        <h3
+          className="card-title"
+        >
+          Cash
+        </h3>
+      </div>
+    </div>
+    <div
+      className="card"
+      onClick={[Function]}
+    >
+      <div
+        className="card-body"
+      >
+        <h3
+          className="card-title"
+        >
+          Credit Card
+        </h3>
+      </div>
+    </div>
+  </div>
+  <button
+    className="btn btn-success btn-block btn-large"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    $
+     Pay
+  </button>
+</div>
+`;

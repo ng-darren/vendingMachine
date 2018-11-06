@@ -25,7 +25,7 @@ class Payment extends Component {
     return (
       <div className="payment-container">
         <div className="card-deck">
-          <div className={type === 'cash'? 'card selected' : 'card'} onClick={() => this.paymentSelected('cash')}>
+          <div id="cash" className={type === 'cash'? 'card selected' : 'card'} onClick={() => this.paymentSelected('cash')}>
             <div className="card-body">
               <h3 className="card-title">Cash</h3>
             </div>
@@ -37,7 +37,7 @@ class Payment extends Component {
           </div>
         </div>
 
-        <Button variant="success" size="large" disabled={!type} onClick={this.pay} block>{ !loading? '$' : <FaSpinner className="icon-spin" /> } Pay</Button>
+        <Button id="pay" variant="success" size="large" disabled={!type} onClick={this.pay} block>{ !loading? '$' : <FaSpinner className="icon-spin" /> } Pay</Button>
       </div>
     )
   }
