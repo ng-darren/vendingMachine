@@ -11,7 +11,7 @@ configure({ adapter: new Adapter() });
 describe('describing Payment ', () => {
 
   it('should highlight card when clicked ', () => {
-    const submitPayment = function() {}
+    const submitPayment = function() {};
     const payment = shallow(<Payment submitPayment={submitPayment} />);
     expect(payment.text()).toEqual('CashCredit Card$ Pay');
 
@@ -20,7 +20,7 @@ describe('describing Payment ', () => {
   });
 
   it('should show spinner when cash and pay clicked', () => {
-    const submitPayment = function() {}
+    const submitPayment = function() {};
     const payment = shallow(<Payment submitPayment={submitPayment} />);
     expect(payment.text()).toEqual('CashCredit Card$ Pay');
 
