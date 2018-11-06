@@ -16,7 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --verbose",
-    "e2e": "jest src/App.e2e.test.js --notify --config=jest.config.js --detectOpenHandles",
+    "e2e": "jest src/App.e2e.test.js --watch --notify --config=jest.config.js --detectOpenHandles",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

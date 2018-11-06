@@ -38,11 +38,10 @@ describe('Machine', () => {
     await page.goto('http://localhost:3000/');
     await page.screenshot({path: 'screenshot.png'});
     await page.waitForSelector('.App-header');
-
-  });
-
-  it('should display App-header', async () => {
+    await page.waitForSelector('.start-button');
     await page.click("button[type=button]");
     await page.waitForSelector('.card');
   });
+
+
 });
