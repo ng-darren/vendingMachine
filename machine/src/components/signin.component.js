@@ -10,9 +10,9 @@ class SignIn extends Component {
     const { startMachine, disabled } = this.props;
 
     return (
-      <Button className="start-button" variant="primary" size="large" onClick={_ => startMachine() } disabled={disabled} block>
+      <div className="start-button btn btn-primary btn-block" variant="primary" size="large" onClick={_ => startMachine()} disabled={disabled}>
         {disabled? <FaSpinner className="icon-spin" /> : <TiBeer />} Start
-      </Button>
+      </div>
     )
   }
 }

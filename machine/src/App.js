@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Button } from "react-bootstrap/lib";
+import { Alert, Button } from "react-bootstrap/lib";
 import firebase from "./firebase";
-import './App.css';
+import { TiBeer } from 'react-icons/ti';
 
-import SignIn from './components/signin.component'
-import Drink from './components/drink.component'
-import Payment from './components/payment.component'
+import Drink from './components/drink.component';
+import Payment from './components/payment.component';
+import SignIn from './components/signin.component';
+import './App.css';
 
 const db = firebase.firestore();
 db.settings({
@@ -21,7 +22,8 @@ class App extends Component {
     revenue: {},
     selected: null,
     isLoading: true,
-    isPaying: false
+    isPaying: false,
+    success: false
   }
 
   componentDidMount() {
@@ -75,7 +77,7 @@ class App extends Component {
   }
 
   cardClicked = (e) => {
-    this.setState({ selected: this.state.selected === e? null : e })
+    this.setState({ selected: this.state.selected === e? null : e, success: false })
   }
 
   checkId = (drink) => {
@@ -84,7 +86,7 @@ class App extends Component {
 
   submitPayment = (type) => {
     const selectedDrink = this.state.drinks.find(this.checkId);
-    this.setState({ isPaying: true });
+    this.setState({ isPaying: true, success: false });
 
     return db.collection("transactions").add({
       machineId: this.state.machineId,
@@ -104,7 +106,7 @@ class App extends Component {
           db.collection("machines").doc(this.state.machineId).update({ revenue: revenueUpdate })
             .then(() => {
               console.log("Document successfully updated!");
-              this.setState({ selected : null, isPaying: false });
+              this.setState({ selected : null, isPaying: false, success: true });
             })
             .catch((error) => {
               // The document probably doesn't exist.
@@ -123,28 +125,34 @@ class App extends Component {
 
   exitMachine = () => {
     this.setState({
-          machineId: '',
-          drinks: [],
-          revenue: {},
-          selected: null,
-          isLoading: false,
-          isPaying: false
-        })
+        machineId: '',
+        drinks: [],
+        revenue: {},
+        selected: null,
+        isLoading: false,
+        isPaying: false
+      })
   }
 
   render() {
-    const { isLoading, machineId, drinks, selected } = this.state;
+    const { isLoading, machineId, drinks, selected, success } = this.state;
 
     return (
       <div className="App">
         <header className="App-header">
           <div className="container">
-            {!machineId && <h3>Vending Machine</h3>}
-            {machineId && <h3>Machine {machineId}</h3>}
+            {!machineId && <h3 id="title">Vending Machine</h3>}
+            {machineId && <h3 id="machineId">Machine {machineId}</h3>}
             <br />
             <br />
             <br />
             {!machineId && <SignIn startMachine={this.startMachine} disabled={isLoading} />}
+
+            {
+              success && <Alert id="successAlert" dismissible variant="success">
+                <TiBeer /> Payment successful, get a drink!
+              </Alert>
+            }
 
             {
               machineId && <div className="card-deck">
@@ -168,7 +176,7 @@ class App extends Component {
             <br />
             <br />
             { machineId &&
-              <Button className="start-button" variant="danger" size="small" onClick={this.exitMachine}>
+              <Button className="exit-button" variant="danger" size="small" onClick={this.exitMachine}>
                Exit
               </Button>
             }
